@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ShieldCheck, Mail, Lock, Loader2 } from "lucide-react";
+import { ShieldCheck, Mail, Lock, Loader2, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -67,8 +67,11 @@ export default function LoginPage() {
         className="w-full max-w-md"
       >
         <Link href="/" className="flex items-center justify-center gap-2 mb-8">
-          <ShieldCheck className="h-10 w-10 text-primary" />
-          <span className="text-3xl font-bold gradient-text">VERA</span>
+          <Shield className="h-10 w-10 text-primary" />
+          <div>
+            <span className="text-2xl font-bold gradient-text block">STEM Verification</span>
+            <span className="text-xs text-muted-foreground">Hallucination Mitigation</span>
+          </div>
         </Link>
 
         <Card>

@@ -7,8 +7,8 @@ import { Toaster } from "@/components/ui/toaster";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "VERA - Verification Engine for Research and Academia",
-  description: "AI-powered claim verification system for academic research",
+  title: "STEM Hallucination Mitigation - AI-Powered Fact Verification for Education",
+  description: "Mitigating LLM Hallucinations in STEM Education via Cross-Referenced Knowledge Bases",
   icons: {
     icon: "/favicon.ico",
   },

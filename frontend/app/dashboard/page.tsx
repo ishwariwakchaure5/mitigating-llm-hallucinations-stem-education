@@ -12,6 +12,7 @@ import {
   LogOut,
   User,
   Loader2,
+  Shield,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -80,8 +81,11 @@ export default function DashboardPage() {
       <nav className="border-b bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex justify-between items-center">
           <Link href="/dashboard" className="flex items-center gap-2">
-            <ShieldCheck className="h-8 w-8 text-primary" />
-            <span className="text-2xl font-bold gradient-text">VERA</span>
+            <Shield className="h-8 w-8 text-primary" />
+            <div>
+              <span className="text-lg font-bold gradient-text block">STEM Verification</span>
+              <span className="text-xs text-muted-foreground">Hallucination Mitigation</span>
+            </div>
           </Link>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2 text-sm text-muted-foreground">
@@ -105,7 +109,7 @@ export default function DashboardPage() {
         >
           <h1 className="text-4xl font-bold mb-2">Knowledge Bases</h1>
           <p className="text-muted-foreground">
-            Manage your document collections and verify claims
+            Build verified STEM knowledge bases to detect AI hallucinations
           </p>
         </motion.div>
 

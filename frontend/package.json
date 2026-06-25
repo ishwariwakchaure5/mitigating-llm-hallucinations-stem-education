@@ -1,7 +1,8 @@
 {
-  "name": "vera-frontend",
+  "name": "stem-hallucination-mitigation-frontend",
   "version": "1.0.0",
   "private": true,
+  "description": "Frontend for Mitigating LLM Hallucinations in STEM Education via Cross-Referenced Knowledge Bases",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

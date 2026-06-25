@@ -3,26 +3,26 @@ version: '3.8'
 services:
   postgres:
     image: postgres:15-alpine
-    container_name: vera_postgres
+    container_name: stem_postgres
     environment:
-      POSTGRES_DB: vera_db
-      POSTGRES_USER: vera_user
-      POSTGRES_PASSWORD: ${VERA_DB_PASSWORD:-vera_secure_pass_123}
+      POSTGRES_DB: stem_db
+      POSTGRES_USER: stem_user
+      POSTGRES_PASSWORD: ${STEM_DB_PASSWORD:-stem_secure_pass_123}
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U vera_user -d vera_db"]
+      test: ["CMD-SHELL", "pg_isready -U stem_user -d stem_db"]
       interval: 5s
       timeout: 5s
       retries: 5
     networks:
-      - vera_network
+      - stem_network
 
   redis:
     image: redis:7-alpine
-    container_name: vera_redis
+    container_name: stem_redis
     ports:
       - "6379:6379"
     healthcheck:
@@ -31,21 +31,27 @@ services:
       timeout: 3s
       retries: 5
     networks:
-      - vera_network
+      - stem_network
 
   qdrant:
     image: qdrant/qdrant:v1.7.4
-    container_name: vera_qdrant
+    container_name: stem_qdrant
     ports:
       - "6333:6333"
       - "6334:6334"
     volumes:
       - qdrant_data:/qdrant/storage
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:6333/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     networks:
-      - vera_network
+      - stem_network
 
   api:
     build: .
+    container_name: stem_api
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000"
@@ -55,12 +61,18 @@ services:
     env_file:
       - backend/.env
     depends_on:
-      - postgres
-      - redis
-      - qdrant
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+    networks:
+      - stem_network
 
   worker:
     build: .
+    container_name: stem_worker
     command: celery -A app.tasks worker --loglevel=info
     volumes:
       - ./backend:/app
@@ -70,12 +82,17 @@ services:
     depends_on:
       - redis
       - postgres
+    networks:
+      - stem_network
 
 volumes:
   postgres_data:
+    driver: local
   qdrant_data:
+    driver: local
   huggingface_cache:
+    driver: local
 
 networks:
-  vera_network:
+  stem_network:
     driver: bridge

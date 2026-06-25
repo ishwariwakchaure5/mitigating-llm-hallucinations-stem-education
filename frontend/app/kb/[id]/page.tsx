@@ -14,6 +14,7 @@ import {
   AlertCircle,
   Trash2,
   Send,
+  Shield,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -166,7 +167,7 @@ export default function KnowledgeBasePage() {
               </Button>
             </Link>
             <div className="flex items-center gap-2">
-              <ShieldCheck className="h-6 w-6 text-primary" />
+              <Shield className="h-6 w-6 text-primary" />
               <h1 className="text-xl font-bold">{kb?.name}</h1>
             </div>
           </div>
@@ -325,7 +326,7 @@ export default function KnowledgeBasePage() {
                 <CardHeader>
                   <CardTitle>Verify a Claim</CardTitle>
                   <CardDescription>
-                    Enter a statement to verify against your knowledge base
+                    Enter AI-generated content or claims to check for hallucinations against your knowledge base
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
