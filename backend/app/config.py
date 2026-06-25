@@ -4,7 +4,7 @@ from functools import lru_cache
 
 class Settings(BaseSettings):
     secret_key: str
-    db_password: str = "vera_secure_pass_123"
+    db_password: str = "stem_secure_pass_123"
     database_url: str
     redis_url: str = "redis://localhost:6379/0"
     qdrant_host: str = "localhost"
@@ -20,7 +20,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
-        env_prefix="VERA_",
+        env_prefix="STEM_",
     )
 
 

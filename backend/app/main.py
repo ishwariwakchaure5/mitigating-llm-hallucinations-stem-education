@@ -14,7 +14,7 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("VERA API starting up...")
+    logger.info("STEM Hallucination Mitigation API starting up...")
     os.makedirs(settings.upload_dir, exist_ok=True)
     await create_tables()
     logger.info("Database tables created/verified")
@@ -24,12 +24,12 @@ async def lifespan(app: FastAPI):
     asyncio.create_task(requeue_pending_documents())
 
     yield
-    logger.info("VERA API shutting down...")
+    logger.info("STEM Hallucination Mitigation API shutting down...")
 
 
 app = FastAPI(
-    title="VERA API",
-    description="Vector-Evidence Retrieval and Attestation — AI hallucination detection",
+    title="STEM Hallucination Mitigation API",
+    description="Evidence-based verification system for mitigating LLM hallucinations in STEM education",
     version="1.0.0",
     lifespan=lifespan,
 )

@@ -8,7 +8,7 @@ from app.tasks import celery_app
 
 logger = logging.getLogger(__name__)
 
-_executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="vera-process")
+_executor = ThreadPoolExecutor(max_workers=2, thread_name_prefix="stem-process")
 
 _worker_cache: dict[str, float | bool] = {"available": False, "checked_at": 0.0}
 _WORKER_CACHE_TTL = 10.0

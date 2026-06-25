@@ -1,6 +1,6 @@
 """
-VERA end-to-end pipeline test.
-Usage:  python tests/vera_pipeline_test.py
+STEM Hallucination Mitigation System end-to-end pipeline test.
+Usage:  python tests/stem_pipeline_test.py
 Requires: httpx (already in backend venv)
 """
 
@@ -17,8 +17,8 @@ if sys.stdout.encoding and sys.stdout.encoding.lower() != "utf-8":
 # ── config ────────────────────────────────────────────────────────────────────
 
 BASE       = "http://localhost:8000"
-PDF_PATH   = Path(__file__).parent / "vera_test_document.pdf"
-EMAIL      = "pipelinetest@vera.dev"
+PDF_PATH   = Path(__file__).parent / "stem_test_document.pdf"
+EMAIL      = "pipelinetest@stem.dev"
 PASSWORD   = "testpass123"
 NAME       = "Pipeline Tester"
 POLL_EVERY = 5          # seconds between status checks
@@ -267,7 +267,7 @@ def print_report(
 
     print()
     print("════════════════════════════════")
-    print("  VERA PIPELINE TEST RESULTS")
+    print("  STEM PIPELINE TEST RESULTS")
     print("════════════════════════════════")
     print(f"  Auth          {'PASS' if auth_ok        else 'FAIL'}")
     print(f"  Upload        {'PASS' if upload_ok      else 'FAIL'}")

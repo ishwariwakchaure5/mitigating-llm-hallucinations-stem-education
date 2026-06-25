@@ -120,7 +120,7 @@ def run_document_processing_sync(document_id: str) -> dict:
     return {"document_id": document_id, "status": "ready"}
 
 
-@celery_app.task(name="vera.tasks.process_document", bind=True, max_retries=3)
+@celery_app.task(name="stem.tasks.process_document", bind=True, max_retries=3)
 def process_document(self, document_id: str) -> dict:
     try:
         return run_document_processing_sync(document_id)

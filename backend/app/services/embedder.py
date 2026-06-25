@@ -41,7 +41,7 @@ class TextEmbedder:
 
     def ensure_collection(self, kb_id: str) -> str:
         """Create the Qdrant collection for this KB if it does not exist yet."""
-        name = f"vera_{kb_id}_text"
+        name = f"stem_{kb_id}_text"
         existing = {c.name for c in self.qdrant.get_collections().collections}
         if name not in existing:
             self.qdrant.create_collection(
@@ -102,7 +102,7 @@ class TextEmbedder:
             [query], normalize_embeddings=True, show_progress_bar=False
         )[0].tolist()
         results = self.qdrant.search(
-            collection_name=f"vera_{kb_id}_text",
+            collection_name=f"stem_{kb_id}_text",
             query_vector=vec,
             limit=top_k,
             with_payload=True,

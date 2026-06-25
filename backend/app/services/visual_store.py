@@ -41,7 +41,7 @@ class VisualStore:
     # ── collection management ─────────────────────────────────────────────────
 
     def ensure_collection(self, kb_id: str) -> str:
-        name = f"vera_{kb_id}_visual"
+        name = f"stem_{kb_id}_visual"
         existing = {c.name for c in self.qdrant.get_collections().collections}
         if name not in existing:
             self.qdrant.create_collection(
@@ -132,7 +132,7 @@ class VisualStore:
         """Find images most similar to a text query using CLIP cross-modal search."""
         vec = self.embed_text(text)
         results = self.qdrant.search(
-            collection_name=f"vera_{kb_id}_visual",
+            collection_name=f"stem_{kb_id}_visual",
             query_vector=vec,
             limit=top_k,
             with_payload=True,

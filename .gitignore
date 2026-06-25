@@ -138,7 +138,7 @@ backend/uploads/
 !backend/alembic.ini
 !backend/app/models/
 !frontend/lib/
-!tests/vera_test_document.pdf
-!tests/vera_review_document.pdf
+!tests/stem_test_document.pdf
+!tests/stem_review_document.pdf
 !docker-compose.yml
 !docker-compose.dev.yml

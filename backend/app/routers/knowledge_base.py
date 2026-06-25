@@ -109,7 +109,7 @@ async def delete_knowledge_base(
         from qdrant_client import QdrantClient
         qclient = QdrantClient(host=settings.qdrant_host, port=settings.qdrant_port)
         for suffix in ("text", "visual"):
-            col = f"vera_{kb_id}_{suffix}"
+            col = f"stem_{kb_id}_{suffix}"
             try:
                 qclient.delete_collection(col)
                 logger.info("Deleted Qdrant collection %s", col)
