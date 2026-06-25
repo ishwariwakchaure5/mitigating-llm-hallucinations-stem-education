@@ -1,0 +1,68 @@
+# Web framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-multipart==0.0.9
+
+# Pydantic v2 — 2.9+ ships cp313 wheels; 2.5.3 did not
+pydantic[email]>=2.9.0
+pydantic-settings>=2.5.0
+
+# Database
+# 2.0.25 fails on Python 3.13 (__firstlineno__/__static_attributes__ assertion); 2.0.36+ fixes it
+sqlalchemy>=2.0.36
+asyncpg>=0.29.0
+alembic==1.13.1
+
+# Auth
+python-jose[cryptography]==3.3.0
+# passlib 1.7.4 is incompatible with bcrypt 4.x+ (removed __about__, strict 72-byte limit)
+passlib[bcrypt]==1.7.4
+bcrypt<4.0
+
+# Task queue
+celery==5.3.6
+redis==5.0.1
+
+# Document parsing
+# PyMuPDF 1.24+ ships pre-built abi3 wheels; 1.23.8 required Visual Studio on py3.13
+PyMuPDF>=1.24.0
+python-pptx==0.6.23
+docx2python==2.8.0
+
+# Image processing and OCR
+Pillow>=10.2.0
+# 4.10+ ships cp37-abi3 wheel covering py3.13
+opencv-python-headless>=4.10.0.84
+pytesseract==0.3.10
+imagehash==4.3.1
+
+# ML — embeddings and NLI
+# torch 2.6+ is the first release with cp313 wheels
+torch>=2.6.0
+# keep transformers / tokenizers / sentence-transformers in step with torch 2.6+
+transformers>=4.45.0
+tokenizers>=0.20.0
+sentence-transformers>=3.0.0
+einops>=0.8.0           # required by nomic-embed-text-v1 custom model code
+
+# Vector database
+qdrant-client==1.7.3
+
+# Math
+# torch>=2.6.0 requires sympy>=1.13.1; latex2sympy2 only needs sympy>=1.4
+sympy>=1.13.1
+latex2sympy2==1.9.1
+
+# Graph
+networkx==3.2.1
+
+# HTTP + utils
+httpx==0.26.0
+aiofiles==23.2.1
+python-dotenv==1.0.0
+# numpy 2.x required for Python 3.13 + modern torch
+numpy>=2.0.0
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3

@@ -1,0 +1,81 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: vera_postgres
+    environment:
+      POSTGRES_DB: vera_db
+      POSTGRES_USER: vera_user
+      POSTGRES_PASSWORD: ${VERA_DB_PASSWORD:-vera_secure_pass_123}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U vera_user -d vera_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    networks:
+      - vera_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: vera_redis
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    networks:
+      - vera_network
+
+  qdrant:
+    image: qdrant/qdrant:v1.7.4
+    container_name: vera_qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - qdrant_data:/qdrant/storage
+    networks:
+      - vera_network
+
+  api:
+    build: .
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend:/app
+      - huggingface_cache:/root/.cache/huggingface
+    env_file:
+      - backend/.env
+    depends_on:
+      - postgres
+      - redis
+      - qdrant
+
+  worker:
+    build: .
+    command: celery -A app.tasks worker --loglevel=info
+    volumes:
+      - ./backend:/app
+      - huggingface_cache:/root/.cache/huggingface
+    env_file:
+      - backend/.env
+    depends_on:
+      - redis
+      - postgres
+
+volumes:
+  postgres_data:
+  qdrant_data:
+  huggingface_cache:
+
+networks:
+  vera_network:
+    driver: bridge
